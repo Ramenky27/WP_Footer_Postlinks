@@ -1,1 +1,1 @@
-# WP_Footer_Postlinks
+# Footer Postlinks plugin for Wordpress
