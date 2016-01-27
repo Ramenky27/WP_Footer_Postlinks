@@ -29,19 +29,6 @@ class footerPostlinks_Admin {
 	//Инициализация настроек
 	public static function init_settings(){
 		register_setting( 'footer-postlinks-main', 'postlinks', array('footerPostlinks_Admin', 'sanitize_callback') );
-
-		add_settings_section( 'main_section', 'Основные настройки', '', 'footer-postlinks' ); 
-	
-		add_settings_field('posts_ids', 'ID постов', array('footerPostlinks_Admin', 'field_posts_ids'), 'footer-postlinks', 'main_section' );
-	}
-	
-	//Заполнение поля с ID постов
-	public static function field_posts_ids(){
-		$postlinks = get_option('postlinks');
-		$ids = $postlinks['ids'];
-		?>
-		<input type="text" name="postlinks[ids]" value="<?php echo esc_attr( $ids ) ?>" />
-		<?php
 	}
 	
 	//Очистка ввода
@@ -56,18 +43,6 @@ class footerPostlinks_Admin {
 	
 	//Отображение страницы настроек
 	public static function display_page() {
-	?>
-		<div class="wrap">
-			<h2><?php echo get_admin_page_title() ?></h2>
-	
-			<form action="options.php" method="POST">
-				<?php
-					settings_fields( 'footer-postlinks-main' );     // скрытые защитные поля
-					do_settings_sections( 'footer-postlinks' ); // секции с настройками (опциями). У нас она всего одна 'section_id'
-					submit_button();
-				?>
-			</form>
-		</div>
-	<?php		
+		include('view.admin.php');
 	}
 }
