@@ -5,12 +5,14 @@ class footerPostlinks {
 	private static $options;
 	private static $posts;
 	private static $query = array(
-			'post_type'       => 'post',
-			'post_status'     => 'publish',
-			'nopaging'			=> true,
-			'orderby'         => 'post_date',
-			'order'           => 'DESC',
-			'numberposts'		=> -1
+			'post_type'     => 'post',
+			'post_status'   => 'publish',
+			'nopaging'		=> true,
+			'orderby'       => 'post_date',
+			'meta_key'		=> '_fpl_show',
+			'meta_value'	=> true,
+			'order'         => 'DESC',
+			'numberposts'	=> -1
 		);
 			
 	public static function init() {
@@ -18,12 +20,13 @@ class footerPostlinks {
 			self::init_hooks();
 		}
 		
-		self::get_options();
-		self::get_posts();
+		//self::get_options();
+		self::$posts = self::get_posts();
 	}	
 	
 	public static function init_hooks() {
 		self::$initiated = true;
+		
 		add_action( 'wp_footer', array('footerPostlinks', 'display'));		
 	}
 	
@@ -38,7 +41,7 @@ class footerPostlinks {
 	}
 	
 	public static function get_posts() {		
-		self::$posts = get_posts( self::$query );		
+		 return get_posts( self::$query );		
 	}
 	
 	public static function display() {
